@@ -1,38 +1,23 @@
 
-
-```
-!pip install --upgrade -q gspread
-```
-
 # GOT DEATH POOL BITCHES
 
+### Imports
 
-```
-from google.colab import auth
-auth.authenticate_user()
 
-import gspread
-from oauth2client.client import GoogleCredentials
-
-gc = gspread.authorize(GoogleCredentials.get_application_default())
-
-worksheet = gc.open('Game of Thrones Season 8 Death Pool (Responses)').sheet1
-
-# get_all_values gives a list of rows.
-rows = worksheet.get_all_values()
-print(rows[0])
-
-# Convert to a DataFrame and render.
+```python
 import pandas as pd
-df = pd.DataFrame.from_records(rows[1:], columns=rows[0], index='Who are you?')
+from IPython.display import HTML
 
+pd.set_option('display.max_columns', None)
 ```
 
-    ['Timestamp', 'Jon Snow', 'Daenerys Targaryen Stormborn of the House Targaryen, the First of Her Name, Queen of the Andals, the Rhoynar and the First Men, Lady of the Seven Kingdoms and Protector of the Realm, Lady of Dragonstone, Queen of Meereen, Khaleesi of the Great Grass Sea, the Unburnt, Breaker of Chains and Mother of Dragons', 'Sansa Stark', 'Arya Stark', 'Bran Stark', 'Jamie Fookin Lannister', 'Tyrion Lannister', 'Yara Greyjoy', 'Jorah Mormont', 'Gendry Baratheon', 'Ser Davos Seaworth the Onion Knight', 'Brienne of Tarth', 'Podric Payne', 'The Hound', 'Samwell Tarley', 'Gilly', 'Sam the Baby', 'Ser Bronn of the Blackwater', 'Missandei', 'Meera Reed', 'Lyanna Mormont', 'Hot Pie', 'Cersei Lannister', 'Euron Greyjoy', 'The Mountain', 'Qyburn', 'Elia Sand', 'Theon Greyjoy', 'Varys the Spider', 'Grey Worm', 'Melisandre', 'Beric Dondarrion', 'Tormund Giantsbane', 'Ghost', 'Drogon', 'Rhaegal', 'Was the boatsex fruitful?', 'If the she is, does the "baby" live?', 'Does the Night King die?', 'If the Night King was done in, whodunit?', "Who's sitting on the Iron Throne at the very end?", 'Who are you?']
-    
 
-
+```python
+df = pd.read_csv('responses.csv', index_col=-1)
 ```
+
+
+```python
 rename = {
     'Jon Snow': 'jon_snow',
     'Daenerys Targaryen Stormborn of the House Targaryen, the First of Her Name, Queen of the Andals, the Rhoynar and the First Men, Lady of the Seven Kingdoms and Protector of the Realm, Lady of Dragonstone, Queen of Meereen, Khaleesi of the Great Grass Sea, the Unburnt, Breaker of Chains and Mother of Dragons': 'daenerys_targaryen',
@@ -82,7 +67,7 @@ df.rename(columns=rename, inplace=True)
 ```
 
 
-```
+```python
 cols_reorder = [
     'jon_snow',
     'daenerys_targaryen',
@@ -178,525 +163,11 @@ animals = [
     'rhaegal'
 ]
 
-print(cols_reorder + bonus)
-
 df_reorder = df[cols_reorder + bonus]
-df[cols_reorder + bonus]
 ```
 
-    ['jon_snow', 'daenerys_targaryen', 'sansa_stark', 'arya_stark', 'bran_stark', 'cersei_lannister', 'jamie_lannister', 'tyrion_lannister', 'theon_greyjoy', 'yara_greyjoy', 'euron_greyjoy', 'melisandre', 'varys_the_spider', 'jorah_mormont', 'beric_dondarrion', 'gendry_baratheon', 'brienne_of_tarth', 'podric_payne', 'the_hound', 'the_mountain', 'samwell_tarley', 'gilly', 'baby_sam', 'davos_seaworth', 'bronn_of_blackwater', 'tormund_giantsbane', 'grey_worm', 'missandei', 'meera_reed', 'lyanna_mormont', 'qyburn', 'elia_sand', 'hot_pie', 'ghost', 'drogon', 'rhaegal', 'pregnant', 'abortion', 'iced', 'whodunit', 'throne']
-    
 
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>jon_snow</th>
-      <th>daenerys_targaryen</th>
-      <th>sansa_stark</th>
-      <th>arya_stark</th>
-      <th>bran_stark</th>
-      <th>cersei_lannister</th>
-      <th>jamie_lannister</th>
-      <th>tyrion_lannister</th>
-      <th>theon_greyjoy</th>
-      <th>yara_greyjoy</th>
-      <th>...</th>
-      <th>elia_sand</th>
-      <th>hot_pie</th>
-      <th>ghost</th>
-      <th>drogon</th>
-      <th>rhaegal</th>
-      <th>pregnant</th>
-      <th>abortion</th>
-      <th>iced</th>
-      <th>whodunit</th>
-      <th>throne</th>
-    </tr>
-    <tr>
-      <th>Who are you?</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>Ryan Denoux</th>
-      <td>Dead</td>
-      <td>Dead</td>
-      <td>Dead</td>
-      <td>Dead</td>
-      <td>Dead</td>
-      <td>Dead</td>
-      <td>Dead</td>
-      <td>Dead</td>
-      <td>Dead</td>
-      <td>Dead</td>
-      <td>...</td>
-      <td>Dead</td>
-      <td>Dead</td>
-      <td>Dead</td>
-      <td>Dead</td>
-      <td>Dead</td>
-      <td>He's shooting blanks</td>
-      <td></td>
-      <td>He's still laughing straight to the bank</td>
-      <td></td>
-      <td>Jahaerys Targaryen</td>
-    </tr>
-    <tr>
-      <th>Neal</th>
-      <td>Wight</td>
-      <td>Dead</td>
-      <td>Dead</td>
-      <td>Dead</td>
-      <td>Wight</td>
-      <td>Dead</td>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>Wight</td>
-      <td>Dead</td>
-      <td>...</td>
-      <td>Dead</td>
-      <td>Dead</td>
-      <td>Alive</td>
-      <td>Dead</td>
-      <td>Dead</td>
-      <td>She's preggers</td>
-      <td>no</td>
-      <td>He's still laughing straight to the bank</td>
-      <td>Pervy Bran</td>
-      <td>Gendry</td>
-    </tr>
-    <tr>
-      <th>Will</th>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>Dead</td>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>Dead</td>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>Dead</td>
-      <td>...</td>
-      <td>Dead</td>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>Dead</td>
-      <td>She's preggers</td>
-      <td>yes</td>
-      <td>Somebody iced his ass</td>
-      <td>Bran via spooky mind control</td>
-      <td>Your momma (Danny)</td>
-    </tr>
-    <tr>
-      <th>Rob</th>
-      <td>Alive</td>
-      <td>Dead</td>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>Dead</td>
-      <td>Dead</td>
-      <td>Dead</td>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>Dead</td>
-      <td>...</td>
-      <td>Dead</td>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>She's preggers</td>
-      <td>yes</td>
-      <td>Somebody iced his ass</td>
-      <td>Bran</td>
-      <td>Jon Snow</td>
-    </tr>
-    <tr>
-      <th>Dom T</th>
-      <td>Alive</td>
-      <td>Dead</td>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>Dead</td>
-      <td>Dead</td>
-      <td>Dead</td>
-      <td>Dead</td>
-      <td>Dead</td>
-      <td>Alive</td>
-      <td>...</td>
-      <td>Dead</td>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>Dead</td>
-      <td>Alive</td>
-      <td>She's preggers</td>
-      <td>no</td>
-      <td>He's still laughing straight to the bank</td>
-      <td></td>
-      <td>Jon Snow</td>
-    </tr>
-    <tr>
-      <th>Will Sweet</th>
-      <td>Dead</td>
-      <td>Dead</td>
-      <td>Dead</td>
-      <td>Dead</td>
-      <td>Dead</td>
-      <td>Dead</td>
-      <td>Dead</td>
-      <td>Dead</td>
-      <td>Dead</td>
-      <td>Dead</td>
-      <td>...</td>
-      <td>Dead</td>
-      <td>Alive</td>
-      <td>Dead</td>
-      <td>Dead</td>
-      <td>Dead</td>
-      <td>He's shooting blanks</td>
-      <td></td>
-      <td>Somebody iced his ass</td>
-      <td>Samwell_Tarly</td>
-      <td>None</td>
-    </tr>
-    <tr>
-      <th>David Susko</th>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>Dead</td>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>Dead</td>
-      <td>Dead</td>
-      <td>Alive</td>
-      <td>Dead</td>
-      <td>Dead</td>
-      <td>...</td>
-      <td>Dead</td>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>Dead</td>
-      <td>He's shooting blanks</td>
-      <td></td>
-      <td>Somebody iced his ass</td>
-      <td>podric mutherfucking Payne</td>
-      <td>Aegon Targaryen</td>
-    </tr>
-    <tr>
-      <th>Brazin</th>
-      <td>Dead</td>
-      <td>Dead</td>
-      <td>Dead</td>
-      <td>Dead</td>
-      <td>Dead</td>
-      <td>Dead</td>
-      <td>Dead</td>
-      <td>Dead</td>
-      <td>Dead</td>
-      <td>Dead</td>
-      <td>...</td>
-      <td>Dead</td>
-      <td>Alive</td>
-      <td>Dead</td>
-      <td>Dead</td>
-      <td>Dead</td>
-      <td>She's preggers</td>
-      <td>yes</td>
-      <td>Somebody iced his ass</td>
-      <td>yes</td>
-      <td>no one</td>
-    </tr>
-    <tr>
-      <th>Rich</th>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>Dead</td>
-      <td>Wight</td>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>Dead</td>
-      <td>Dead</td>
-      <td>...</td>
-      <td>Dead</td>
-      <td>Dead</td>
-      <td>Dead</td>
-      <td>Dead</td>
-      <td>Alive</td>
-      <td>She's preggers</td>
-      <td>yes</td>
-      <td>Somebody iced his ass</td>
-      <td>Jon and danny</td>
-      <td>Daeny and jon</td>
-    </tr>
-    <tr>
-      <th>Wills Thot (liane)</th>
-      <td>Wight</td>
-      <td>Alive</td>
-      <td>Dead</td>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>Dead</td>
-      <td>Dead</td>
-      <td>Dead</td>
-      <td>Alive</td>
-      <td>Wight</td>
-      <td>...</td>
-      <td>Dead</td>
-      <td>Wight</td>
-      <td>Alive</td>
-      <td>Dead</td>
-      <td>Alive</td>
-      <td>She's preggers</td>
-      <td>no</td>
-      <td>Somebody iced his ass</td>
-      <td>Brandon Stark</td>
-      <td>IF one of them doesn’t die, jon and Dany split...</td>
-    </tr>
-    <tr>
-      <th>Batt</th>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>Dead</td>
-      <td>Dead</td>
-      <td>Alive</td>
-      <td>Dead</td>
-      <td>Dead</td>
-      <td>...</td>
-      <td>Dead</td>
-      <td>Dead</td>
-      <td>Dead</td>
-      <td>Alive</td>
-      <td>Dead</td>
-      <td>She's preggers</td>
-      <td>yes</td>
-      <td>Somebody iced his ass</td>
-      <td>bran</td>
-      <td>no one</td>
-    </tr>
-    <tr>
-      <th>Meghan</th>
-      <td>Alive</td>
-      <td>Dead</td>
-      <td>Alive</td>
-      <td>Wight</td>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>Dead</td>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>Wight</td>
-      <td>...</td>
-      <td>Dead</td>
-      <td>Dead</td>
-      <td>Alive</td>
-      <td>Dead</td>
-      <td>Dead</td>
-      <td>He's shooting blanks</td>
-      <td>yes</td>
-      <td>Somebody iced his ass</td>
-      <td>Snew</td>
-      <td>Cerseii</td>
-    </tr>
-    <tr>
-      <th>s8e1</th>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>...</td>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <th>Bruce Jennder</th>
-      <td>Wight</td>
-      <td>Alive</td>
-      <td>Dead</td>
-      <td>Alive</td>
-      <td>Wight</td>
-      <td>Alive</td>
-      <td>Dead</td>
-      <td>Alive</td>
-      <td>Dead</td>
-      <td>Alive</td>
-      <td>...</td>
-      <td>Dead</td>
-      <td>Dead</td>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>Dead</td>
-      <td>She's preggers</td>
-      <td>yes</td>
-      <td>He's still laughing straight to the bank</td>
-      <td>Jon Snow</td>
-      <td>Khaleesi</td>
-    </tr>
-    <tr>
-      <th>Maddie P</th>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>Dead</td>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>Dead</td>
-      <td>...</td>
-      <td>Wight</td>
-      <td>Dead</td>
-      <td>Dead</td>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>She's preggers</td>
-      <td>yes</td>
-      <td>He's still laughing straight to the bank</td>
-      <td></td>
-      <td>Jon!!!!</td>
-    </tr>
-    <tr>
-      <th>Robby D</th>
-      <td>Dead</td>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>Dead</td>
-      <td>Wight</td>
-      <td>Dead</td>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>Dead</td>
-      <td>Dead</td>
-      <td>...</td>
-      <td>Dead</td>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>Dead</td>
-      <td>She's preggers</td>
-      <td>yes</td>
-      <td>Somebody iced his ass</td>
-      <td>John Snow</td>
-      <td>Dragon queen bittttttch</td>
-    </tr>
-    <tr>
-      <th>s8e2</th>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>...</td>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <th>s8e3</th>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>Dead</td>
-      <td>Alive</td>
-      <td>...</td>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td>Alive</td>
-      <td></td>
-      <td></td>
-      <td>Somebody iced his ass</td>
-      <td>No one</td>
-      <td></td>
-    </tr>
-  </tbody>
-</table>
-<p>18 rows × 41 columns</p>
-</div>
-
-
-
-
-```
+```python
 matched_sheet = df_reorder.T.to_csv('transfer.csv')
 ```
 
@@ -704,7 +175,7 @@ matched_sheet = df_reorder.T.to_csv('transfer.csv')
 Preproceesing steps to create selection percentages and correct guesses
 
 
-```
+```python
 current_episode = 's8e3'
 
 df['alive'] = df[df=='Alive'].count(axis=1) / df[cols_reorder].count(axis=1)
@@ -719,10 +190,6 @@ for player in df.index:
   if player not in episodes:
     df.loc[player, 'correct'] = (df.loc[player, :].drop(columns=meta_drop) == df.loc[current_episode, :].drop(columns=meta_drop)).sum() / df.loc[player, :].drop(columns=meta_drop).count()
 ```
-
-    /usr/local/lib/python3.6/dist-packages/pandas/core/ops.py:1649: FutureWarning: elementwise comparison failed; returning scalar instead, but in the future will perform elementwise comparison
-      result = method(y)
-    
 
 # Haltime Report
 So we finally get some fucking blood for the BOBBY-B god (Not enough in this humble servants opinion). Now we get to see who's on track to sit on the iron throne of bets, who picked the right wights, and who's shit outta luck (read this guy). Additionally, since the Night King's fate was sealed (probably) this episode, we'll have a look at who predicted wolverine to swoop in for the massive kill steal. As a reminder the questions were:
@@ -759,7 +226,7 @@ Uh, I already tried that, your grace. I don't think they can be reasoned with at
 Well, maybe they'll see the error of their ways when more of their favorites die (hopefully)
 
 
-```
+```python
 bitches = df.loc[:, ['alive']].drop(episodes).sort_values('alive', ascending=False)
 ax = bitches.plot(
     kind='barh', xlim=(0, 1.19), title='Bunch a Bitches', figsize=(5, 7)
@@ -770,10 +237,6 @@ for i in ax.patches:
     # get_width pulls left or right; get_y pushes up or down
     ax.text(i.get_width() + .025, i.get_y()+.38, str(round((i.get_width())*100, 2))+'%', fontsize=12, color='dimgrey')
 ```
-
-
-![png](GOT_Death_Pool_files/GOT_Death_Pool_11_0.png)
-
 
 ### Who are the Negative Nancy's
 Those who predicted that most of the characters fates were sealed by being born into a fantasy universe where the prophecies are made up and the lives don't matter. These fucks probably enjoy watching show casuals wrench about in pain and suffering as they watch their favorite characters get killed far earlier than traditional narratives call for. I'm sure we can all agree that only the finest can be counted among these ranks, can't we Bobby-B?
@@ -792,7 +255,7 @@ Uh, I'm not so sure you want to go there right now.
 
 
 
-```
+```python
 psychos = df.loc[:, ['dead']].drop(episodes).sort_values('dead', ascending=False)
 ax = psychos.plot(
     kind='barh', xlim=(0, 1.19), title='Bunch a Psychos', figsize=(5, 7)
@@ -805,7 +268,7 @@ for i in ax.patches:
 ```
 
 
-![png](GOT_Death_Pool_files/GOT_Death_Pool_13_0.png)
+![png](GOT_Death_Pool_files/GOT_Death_Pool_14_0.png)
 
 
 ### Who actually used the Wight option?
@@ -816,7 +279,7 @@ RIGHT!? IF OUR ONE TRUE KING WERE STILL RUNNING THINGS, WE'D STILL HAVE PLENTY O
 I'd love to see the great Bobby-B smashing in some heads with his war hammer, but we should probably move on to the actual results
 
 
-```
+```python
 wierdos = df.loc[:, ['wight']].drop(episodes).sort_values('wight', ascending=False)
 ax = wierdos.plot(
     kind='barh', xlim=(0, 1.19), title='Bunch a Wierdos', figsize=(5, 7)
@@ -829,7 +292,7 @@ for i in ax.patches:
 ```
 
 
-![png](GOT_Death_Pool_files/GOT_Death_Pool_15_0.png)
+![png](GOT_Death_Pool_files/GOT_Death_Pool_16_0.png)
 
 
 ## The Results So Far
@@ -845,7 +308,7 @@ You know what, I'm just going to go back to my guard post and keep watch for the
 
 
 
-```
+```python
 leaders = df.loc[:, ['correct']].drop(episodes).sort_values('correct', ascending=False)
 ax = leaders.plot(
     kind='barh', xlim=(0, 1.19), title='Bunch a Winners?', figsize=(5, 7)
@@ -858,5 +321,5 @@ for i in ax.patches:
 ```
 
 
-![png](GOT_Death_Pool_files/GOT_Death_Pool_17_0.png)
+![png](GOT_Death_Pool_files/GOT_Death_Pool_18_0.png)
 
